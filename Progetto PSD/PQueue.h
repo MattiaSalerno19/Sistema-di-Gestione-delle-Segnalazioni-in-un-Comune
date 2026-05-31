@@ -23,5 +23,6 @@ void visualizzaPerCategoria(PQueue q, int categoria_cercata);
 int rendi_chiudibile(PQueue q, int cod_id);
 int cambia_stato(PQueue q, int cod_id, int nuovo_stato);
 int caricaDaFile(PQueue q, const char *nomefile);
+void stampa_report(PQueue q);
  
 #endif //PQUEUE_H

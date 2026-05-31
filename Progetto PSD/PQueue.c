@@ -19,7 +19,7 @@ typedef struct segnalazione{ //Struttura per la segnalazione
     char desc[150]; //Descrizione del problema
     Data data; //Data della segnalazione
     int urg; //Livello di urgenza
-    int stato; //Stato della segnalazione
+    int stato; //Stato della segnalazione da 1 a 3
     int rimuovibile; //Flag per indicare se la segnalazione è rimovibile (1) o meno (0)
 } Segnalazione;
 
@@ -47,9 +47,65 @@ static int confronta_date(Data d1, Data d2) {
     return d1.giorno - d2.giorno;
 }
 
+//Fuznione di controllo per verificare se un anno è bisestile.
+static int bisestile(int anno) {
+    return (anno % 4 == 0 && anno % 100 != 0) || (anno % 400 == 0);
+}
+
+//Funzione di controllo per la validità della data.
+static int data_valida(int g, int m, int a) {
+
+    if (a <= 0) return 0; 
+    if (m < 1 || m > 12) return 0;
+    if (g < 1) return 0;
+
+    int giorni_per_mese[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    
+    if (m == 2 && bisestile(a)) {
+        giorni_per_mese[2] = 29;
+    }
+
+    if (g > giorni_per_mese[m]) return 0;
+
+    return 1;
+}
+
 // Funzione costruttore per una segnalazione.
 Segnalazione newSegnalazione(int cod_id, const char *nome, const char *cogn,int cat, const char *desc,int giorno, int mese, int anno,int urg, int stato, int rimuovibile) {
     Segnalazione s;
+    //Controllo dei parametri, se uno è errato il codice id diventa -1 e caricaDaFile gestisce l'errore.
+    if (cod_id <= 0) {
+        printf("Errore: ID %d non valido (deve essere maggiore di 0).\n", cod_id);
+        s.cod_id = -1; 
+        return s;
+    }
+    if (cat < 1 || cat > 5) {
+        printf("Errore (ID %d): Categoria %d non valida (deve essere tra 1 e 5).\n", cod_id, cat);
+        s.cod_id = -1;
+        return s;
+    }
+    if (stato < 1 || stato > 3) {
+        printf("Errore (ID %d): Stato %d non valido (deve essere tra 1 e 3).\n", cod_id, stato);
+        s.cod_id = -1;
+        return s;
+    }
+    if (rimuovibile != 0 && rimuovibile != 1) {
+        printf("Errore (ID %d): Flag rimuovibile %d non valido (deve essere 0 o 1).\n", cod_id, rimuovibile);
+        s.cod_id = -1;
+        return s;
+    }
+    if (urg < 1) {
+        printf("Errore (ID %d): Livello urgenza %d non valido (deve essere >= 1).\n", cod_id, urg);
+        s.cod_id = -1;
+        return s;
+    }
+    if (!data_valida(giorno, mese, anno)) {
+        printf("Errore (ID %d): Data %02d/%02d/%d inesistente o non valida.\n", cod_id, giorno, mese, anno);
+        s.cod_id = -1;
+        return s;
+    }
+    // Se tutti i parametri sono validi, inizializza la segnalazione.
     s.cod_id      = cod_id;
     s.cat         = cat;
     s.urg         = urg;
@@ -58,6 +114,7 @@ Segnalazione newSegnalazione(int cod_id, const char *nome, const char *cogn,int 
     s.data.giorno = giorno;
     s.data.mese   = mese;
     s.data.anno   = anno;
+    
     strncpy(s.cit_nome, nome, sizeof(s.cit_nome) - 1);
     s.cit_nome[sizeof(s.cit_nome) - 1] = '\0';
     strncpy(s.cit_cogn, cogn, sizeof(s.cit_cogn) - 1);
@@ -98,8 +155,16 @@ int emptyPQ(PQueue q)
 
 //Funzione di stampa per una singola segnalazione
 static void stampa_singola(Segnalazione s){
+    const char* nome_cat ="Categoria sconosciuta";
+    switch (s.cat) {
+        case 1: nome_cat = "Manutenzione stradale"; break;
+        case 2: nome_cat = "Ambiente e rifiuti"; break;
+        case 3: nome_cat = "Impianti pubblici"; break;
+        case 4: nome_cat = "Segnaletica e viabilità"; break;
+        case 5: nome_cat = "Altro"; break;
+    }
     printf("ID: %-5d | Urgenza: %-2d | Stato: %-10d | Data: %02d/%02d/%d\n",s.cod_id, s.urg, s.stato, s.data.giorno, s.data.mese, s.data.anno);
-    printf("Cittadino: %s %s | Categoria: %d\n", s.cit_nome, s.cit_cogn, s.cat);
+    printf("Cittadino: %s %s | Categoria: %d (%s) \n", s.cit_nome, s.cit_cogn, s.cat, nome_cat);
     printf("Descrizione: ");
     stampa_desc(s.desc);
     printf("==================================================================\n");
@@ -271,11 +336,11 @@ int delete(PQueue q, int cod_id) {
 
             // Provo a rimettere il vecchio elemento nell'hash
             if (!hash_insert(q->hash, removed_element.cod_id, i)) {
-            printf("\n Errore critico\n");
-            return 2; //In caso fallisca l'aggiornamento di posizione e poi fallisca il rollback, ritorna errore critico per poi chiudere il programma.
-        }
+                printf("\n Errore critico\n");
+                return 2; //In caso fallisca l'aggiornamento di posizione e poi fallisca il rollback, ritorna errore critico per poi chiudere il programma.
+            }
         
-        return 0; // Fallimento standard: rollback riuscito, l'albero è salvo
+            return 0; //Fallisce l'aggiornamento di posizione ma funziona il rollback.
         }
         
         int padre = i / 2;
@@ -294,14 +359,13 @@ int delete(PQueue q, int cod_id) {
         return 1;
     }
 
-    
 }
 
 // Funzione di confronto per qsort.
 int confronta_segnalazioni(const void *a, const void *b) {
-    Segnalazione *s1 = (Segnalazione *)a;
-    Segnalazione *s2 = (Segnalazione *)b;
-    
+    const Segnalazione *s1 = (const Segnalazione *)a;
+    const Segnalazione *s2 = (const Segnalazione *)b;
+
     if (s2->urg != s1->urg){ //Paragona l'urgenza.
         return s2->urg - s1->urg;
     }    
@@ -433,35 +497,33 @@ int rendi_chiudibile(PQueue q, int cod_id) {
 }
 
 // Carica le segnalazioni da un file txt nella coda di priorità.
-//I campi sono separati da spazi, seguono l'ordine con cui newsegnalazione le riceve, la descrizion al posto degli spazi usa '_'
-int caricaDaFile(PQueue q, const char *nomefile) {
+//I campi sono separati da spazi, seguono l'ordine con cui newsegnalazione le riceve, la descrizione al posto degli spazi usa '_'
+void caricaDaFile(PQueue q, const char *nomefile) {
     FILE *f = fopen(nomefile, "r");
     if (f == NULL) {
         printf("Errore: impossibile aprire il file '%s'.\n", nomefile);
-        return 0;
+        return;
     }
 
     int cod_id, cat, giorno, mese, anno, urg, stato, rimuovibile;
     char nome[20], cogn[20], desc[150];
-    int caricate = 0;
 
-    while (fscanf(f, "%d %19s %19s %d %149s %d %d %d %d %d %d",
-                  &cod_id, nome, cogn, &cat, desc,
-                  &giorno, &mese, &anno,
-                  &urg, &stato, &rimuovibile) == 11) {
+    while (fscanf(f, "%d %19s %19s %d %149s %d %d %d %d %d %d",&cod_id, nome, cogn, &cat, desc,&giorno, &mese, &anno,&urg, &stato, &rimuovibile) == 11) {
 
-        Segnalazione s = newSegnalazione(cod_id, nome, cogn, cat, desc,
-                                         giorno, mese, anno,
-                                         urg, stato, rimuovibile);
-        if (!insert(q, s))
+        Segnalazione s = newSegnalazione(cod_id, nome, cogn, cat, desc,giorno, mese, anno,urg, stato, rimuovibile);
+        
+        if (s.cod_id == -1) {
+            printf("Segnalazione non salvata.\n");
+            continue; // Salta questa segnalazione e continua con la successiva.
+        }
+            
+        if (!insert(q, s)){
             printf("Attenzione: segnalazione id=%d non inserita.\n", cod_id);
-        else
-            caricate++;
+        }
     }
 
     fclose(f);
-    printf("%d segnalazioni caricate da '%s'.\n", caricate, nomefile);
-    return caricate;
+    return;
 }
 
 //Funzione per cambiare lo stato di una segnalazione tramite codice id.
@@ -481,4 +543,69 @@ int cambia_stato(PQueue q, int cod_id, int nuovo_stato) {
 
     printf("Segnalazione non trovata.\n");
     return 0; // Ritorna 0 se la segnalazione non viene trovata.
+}
+
+//Funzione per stampare un report.
+void stampa_report(PQueue q){
+    if (emptyPQ(q)) {
+        printf("Nessuna segnalazione da visualizzare.\n");
+        return;
+    }
+    
+    int segn_cat_1 = 0, segn_cat_2 = 0, segn_cat_3 = 0, segn_cat_4 = 0, segn_cat_5 = 0;
+    int seg_aperte = 0, segn_lavorazione = 0, seg_chiuse = 0;
+    
+    //Scorro tutta la struttura.
+    for (int i = 1; i <= q->numel; i++) {
+        if (q->vet[i].cat == 1) segn_cat_1++;
+        else if (q->vet[i].cat == 2) segn_cat_2++;
+        else if (q->vet[i].cat == 3) segn_cat_3++;
+        else if (q->vet[i].cat == 4) segn_cat_4++;
+        else if (q->vet[i].cat == 5) segn_cat_5++;
+        
+        if (q->vet[i].stato == 1) seg_aperte++;
+        else if (q->vet[i].stato == 2) segn_lavorazione++;
+        else if (q->vet[i].stato == 3) seg_chiuse++;
+    }
+    int segn_maggiori= segn_cat_1, cat_segn_maggiori =1;
+    
+    //Controllo per trovare la categoria con più segnalazioni.
+    if (segn_cat_2 > segn_maggiori) {
+        segn_maggiori = segn_cat_2;
+        cat_segn_maggiori = 2;
+    }
+    if (segn_cat_3 > segn_maggiori) {
+        segn_maggiori = segn_cat_3;
+        cat_segn_maggiori = 3;
+    }
+    if (segn_cat_4 > segn_maggiori) {
+        segn_maggiori = segn_cat_4;
+        cat_segn_maggiori = 4;
+    }
+    if (segn_cat_5 > segn_maggiori) {
+        segn_maggiori = segn_cat_5;
+        cat_segn_maggiori = 5;
+    }
+    //Stampa del report.
+    printf("\n--- REPORT ---\n");
+    printf("Numero totale di segnalazioni: %d\n", q->numel);
+    printf("Segnalazioni per categoria:\n"
+           "Manutenzione stradale: %d\n"
+           "Ambiente e rifiuti: %d\n"
+           "Impianti pubblici: %d\n"
+           "Segnaletica e viabilità: %d\n"
+           "Altro: %d\n", segn_cat_1, segn_cat_2, segn_cat_3, segn_cat_4, segn_cat_5);
+    printf("Segnalazioni aperte: %d\n", seg_aperte);
+    printf("Segnalazioni in lavorazione: %d\n", segn_lavorazione);
+    printf("Segnalazioni chiuse: %d\n", seg_chiuse);
+    //Rende il numero della categoria più leggibile.
+    const char* nome_cat_maggiore="Categoria sconosciuta";
+    switch (cat_segn_maggiori) {
+        case 1: nome_cat_maggiore = "Manutenzione stradale"; break;
+        case 2: nome_cat_maggiore = "Ambiente e rifiuti"; break;
+        case 3: nome_cat_maggiore = "Impianti pubblici"; break;
+        case 4: nome_cat_maggiore = "Segnaletica e viabilità"; break;
+        case 5: nome_cat_maggiore = "Altro"; break;
+    }
+    printf("Categoria con più segnalazioni: %s (%d segnalazioni)\n", nome_cat_maggiore, segn_maggiori);
 }

@@ -9,4 +9,4 @@ int hashSearch(hashtable h, int key);
 int hashDelete(hashtable h, int key);
 void DestroyHashtable(hashtable h);
 
-#endif /* HASH_H */
+#endif //HASH_H

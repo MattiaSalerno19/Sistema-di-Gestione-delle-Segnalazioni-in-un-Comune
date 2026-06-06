@@ -11,11 +11,12 @@ void menu() {
     printf("4. Visualizza tutte le segnalazioni\n");
     printf("5. Visualizza segnalazioni per stato\n");
     printf("6. Visualizza segnalazioni per urgenza\n");
-    printf("7. Visualizza segnalazioni per codice id\n");
-    printf("8. Visualizza segnalazioni per categoria\n");
-    printf("9. Rendi una segnalazione chiudibile\n");
-    printf("10. Cambia stato di una segnalazione\n");
-    printf("11. Stampa report\n");
+    printf("7. Visualizza le segnalazioni più urgenti\n");
+    printf("8. Visualizza segnalazioni per codice id\n");
+    printf("9. Visualizza segnalazioni per categoria\n");
+    printf("10. Rendi una segnalazione chiudibile\n");
+    printf("11. Cambia stato di una segnalazione\n");
+    printf("12. Stampa report\n");
     printf("0. Esci\n");
     printf("Scegli un'opzione: ");
     }
@@ -146,13 +147,20 @@ int main(){
                 visualizzaPerUrgenza(q, urgenza_cercata);
                 break;
             case 7:
+                printf("Quante segnalazioni vuoi vedere?:");
+                int vedere;
+                scanf("%d", &vedere);
+                while (getchar() != '\n');
+                visualizzaPiuUrgenti(q, vedere);
+                break;
+            case 8:
                 printf("Inserisci il codice ID da cercare: "); 
                 int codice_cercato;
                 scanf("%d", &codice_cercato);
                 while (getchar() != '\n'); // Pulisce il buffer di input.
                 visualizzaPerCodice(q, codice_cercato);
                 break;
-            case 8:
+            case 9:
                 printf("Inserisci la categoria da cercare.\n1: Manutenzione stradale\n2: Ambiente e rifiuti\n3: Impianti pubblici\n4: Segnaletica e viabilità\n5: Altro\nCategoria (1-5): ");
                 int categoria_cercata;
                 scanf("%d", &categoria_cercata);
@@ -163,7 +171,7 @@ int main(){
                 }
                 visualizzaPerCategoria(q, categoria_cercata);
                 break;
-            case 9:
+            case 10:
                 printf("Inserisci il codice ID della segnalazione da rendere chiudibile: ");
                 int cod_id_chiudibile;
                 scanf("%d", &cod_id_chiudibile);
@@ -172,7 +180,7 @@ int main(){
                     printf("Segnalazione resa chiudibile con successo.\n");
                 }
                 break;
-            case 10:
+            case 11:
                 printf("Inserisci il codice ID della segnalazione da modificare: ");
                 int cod_id_stato;
                 scanf("%d", &cod_id_stato);
@@ -189,7 +197,7 @@ int main(){
                     printf("Stato della segnalazione modificato con successo.\n");
                 }
                 break;
-            case 11:
+            case 12:
                 stampa_report(q);
                 break;
             default:

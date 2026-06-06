@@ -15,6 +15,7 @@ int confronta_segnalazioni(const void *a, const void *b);
 void visualizzaTutte(PQueue q);
 void visualizzaPerStato(PQueue q, int stato_cercato);
 void visualizzaPerUrgenza(PQueue q, int urgenza_cercata);
+void visualizzaPiuUrgenti(PQueue q, int i);
 void visualizzaPerCodice(PQueue q, int codice_cercato);
 void visualizzaPerCategoria(PQueue q, int categoria_cercata);
 int rendi_chiudibile(PQueue q, int cod_id);

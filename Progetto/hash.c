@@ -36,7 +36,7 @@ hashtable newHashtable(int size) {
 
 //Funzione hash per calcolare l'indice a partire dalla chiave
 int hashFun(int key, int size) {
-    return key % size; //La funzione è util, qualora la key diventi maggiore di size, il resto sarà il suo indice. Qualora ci siano collisioni, sono gestite nelle altre funzioni.
+    return key % size; //La funzione è utile qualora la key diventi maggiore di size, il resto sarà il suo indice. Qualora ci siano collisioni, sono gestite nelle altre funzioni.
 }
 
 //Funzione per aggiungere un elemento alla tabella hash

@@ -218,6 +218,44 @@ static int scendi(PQueue q, int i)
     return 1;
 }
 
+//Funzione per riaggiustare l'heap verso il basso, senza considerare l'heap.
+static int scendi_nohash(PQueue q, int i){
+    Segnalazione temp;
+    int n = q->numel, pos;
+
+    while (1)
+    {      
+        if (2*i + 1 <= n){  // Se il nodo corrente ha due figli.
+            if((q->vet[2*i].urg > q->vet[2*i + 1].urg || (q->vet[2*i].urg == q->vet[2*i + 1].urg && confronta_date(q->vet[2*i].data, q->vet[2*i + 1].data) < 0))){
+                pos = 2*i;  // Il figlio sinistro ha priorità maggiore.
+            }
+            else{   
+                pos = 2*i + 1;  // Il figlio destro ha priorità maggiore o uguale.
+            }
+        }
+      
+        else if(2*i <= n){  // Se il nodo corrente ha solo un figlio.
+            pos = 2*i;
+        }
+       
+        else{
+            break;  // Se non ha figli, interrompe il ciclo.
+        }
+       
+        // Scambia i valori se il figlio ha un valore più grande.
+        if (q->vet[pos].urg > q->vet[i].urg || (q->vet[pos].urg == q->vet[i].urg && confronta_date(q->vet[pos].data, q->vet[i].data) < 0))   
+        {
+            temp = q->vet[i];
+            q->vet[i] = q->vet[pos];
+            q->vet[pos] = temp;
+            i = pos;  // Continua a scendere nell'heap.
+        }
+        else{
+           break;}  // Termina se non sono necessari altri scambi.
+    }
+    return 1;
+}
+
 // Funzione per riaggiustare l'heap verso l'alto.
 static int sali(PQueue q, int pos)
 {
@@ -357,15 +395,26 @@ int delete(PQueue q, int cod_id) {
 
 }
 
-//Funzione di confronto per qsort.
-int confronta_segnalazioni(const void *a, const void *b) {
-    const Segnalazione *s1 = (const Segnalazione *)a;
-    const Segnalazione *s2 = (const Segnalazione *)b;
+//Funzione per rendere una segnalazione chiudibile tramite codice id.
+int rendi_chiudibile(PQueue q, int cod_id) {
+    
+    if (emptyPQ(q)) {
+        printf("Nessuna segnalazione da rendere chiudibile.\n");
+        return 0;
+    }
 
-    if (s2->urg != s1->urg){ //Paragona l'urgenza.
-        return s2->urg - s1->urg;
-    }    
-    return confronta_date(s1->data, s2->data);
+    int i = hashSearch(q->hash, cod_id);
+    if (i != -1) {
+        if (q->vet[i].rimuovibile == 1) {
+            printf("Segnalazione già rimovibile.\n");
+            return 0; 
+        }
+        q->vet[i].rimuovibile = 1; 
+        return 1; 
+    }
+    
+    printf("Segnalazione non trovata.\n");
+    return 0;
 }
 
 // Funzione per visionare tutte le segnalazioni.
@@ -376,22 +425,28 @@ void visualizzaTutte(PQueue q) {
         return;
     }
 
-    Segnalazione *vet_temp = malloc(q->numel * sizeof(Segnalazione)); //Alloco un array temporaneo.
-    if (!vet_temp) {
-        printf("Errore di allocazione della memoria.\n");
+    PQueue q_temp = newPQ(); //Creo una coda temporanea
+    if (!q_temp) {
+        printf("Errore di allocazione della struttura della coda temporanea.\n");
         return;
     }
 
-    memcpy(vet_temp, &q->vet[1], q->numel * sizeof(Segnalazione)); //Funzione di copia da string.h per copiare blocchi di memoria.
-
-    qsort(vet_temp, q->numel, sizeof(Segnalazione), confronta_segnalazioni);//Funzione di ordinamento da stlib.h.
+    q_temp->numel = q->numel; //Sincronizzo il numeri di elementi
+    memcpy(&q_temp->vet[1], &q->vet[1], q->numel * sizeof(Segnalazione)); //Funzione di copia da string.h per copiare blocchi di memoria.
 
     printf("\n--- TUTTE LE SEGNALAZIONI ---\n");
-    for (int i = 0; i < q->numel; i++) {
-        stampa_singola(vet_temp[i]);
+    
+    while(q_temp->numel > 0){
+        stampa_singola(q_temp->vet[1]); //Stampa la radice, ha priorità massima.
+        q_temp->vet[1] = q_temp->vet[q_temp->numel];
+        q_temp->numel--;
+        if (q_temp->numel > 0) {
+            scendi_nohash(q_temp, 1);
+        }
     }
 
-    free(vet_temp);//Libero la memoria allocata per l'array temporaneo.
+    DestroyPQueue(q_temp); //Distrugge la coda temporanea.
+
 }
 
 //Funzione per visionare le segnalazioni in base allo stato.
@@ -429,6 +484,46 @@ void visualizzaPerUrgenza(PQueue q, int urgenza_cercata) {
     }
 
     if (trovate == 0) printf("Nessuna segnalazione con questa urgenza.\n");
+}
+
+//Funzione per visionare le prime "i" segnalazioni più urgenti.
+void visualizzaPiuUrgenti(PQueue q, int i){
+    
+    if (emptyPQ(q)) {
+        printf("Nessuna segnalazione da visualizzare.\n");
+        return;
+    }
+
+    if (i>q->numel){
+        printf("Non ci sono abbastanza segnalazioni, massimo %d \n", q->numel);
+        return;
+    }
+    if (i<1){
+        printf("Numero non valido, deve essere maggiore di 0.\n");
+        return;
+    }
+
+    PQueue q_temp = newPQ(); //Creo una coda temporanea
+    if (!q_temp) {
+        printf("Errore di allocazione della struttura della coda temporanea.\n");
+        return;
+    }
+
+    q_temp->numel = q->numel; //Sincronizzo il numeri di elementi
+    memcpy(&q_temp->vet[1], &q->vet[1], q->numel * sizeof(Segnalazione)); //Funzione di copia da string.h per copiare blocchi di memoria.
+
+    printf("\n--- PRIME %d SEGNALAZIONI ---\n", i);
+    
+    for(int t=0;t<i;t++){
+        stampa_singola(q_temp->vet[1]); //Stampa la radice, ha priorità massima.
+        q_temp->vet[1] = q_temp->vet[q_temp->numel];
+        q_temp->numel--;
+        if (q_temp->numel > 0) {
+            scendi_nohash(q_temp, 1);
+        }
+    }
+
+    DestroyPQueue(q_temp); //Distrugge la coda temporanea.
 }
 
 //Funzione per visionare le segnalazioni tramite codice identificativo.
@@ -470,28 +565,6 @@ void visualizzaPerCategoria(PQueue q, int categoria_cercata) {
     if (trovate == 0) {
         printf("Nessuna segnalazione trovata per la categoria %d.\n", categoria_cercata);
     }   
-}
-
-//Funzione per rendere una segnalazione chiudibile tramite codice id.
-int rendi_chiudibile(PQueue q, int cod_id) {
-    
-    if (emptyPQ(q)) {
-        printf("Nessuna segnalazione da rendere chiudibile.\n");
-        return 0;
-    }
-
-    int i = hashSearch(q->hash, cod_id);
-    if (i != -1) {
-        if (q->vet[i].rimuovibile == 1) {
-            printf("Segnalazione già rimovibile.\n");
-            return 0; 
-        }
-        q->vet[i].rimuovibile = 1; 
-        return 1; 
-    }
-    
-    printf("Segnalazione non trovata.\n");
-    return 0;
 }
 
 // Carica le segnalazioni da un file txt nella coda di priorità.

@@ -44,16 +44,14 @@ int main(){
             case 0:
                 printf("Uscita in corso...\n");
                 DestroyPQueue(q);
-                return EXIT_SUCCESS;
+                return 0;
             
             case 1:
                 char nomefile[100];
                 printf("Inserisci il nome del file da cui caricare le segnalazioni (es. segnalazioni.txt): ");
                 scanf("%99s", nomefile);
                 while (getchar() != '\n'); // Pulisce il buffer di input.
-                if (caricaDaFile(q, nomefile)) {
-                    printf("Segnalazioni caricate con successo da file.\n");
-                }
+                caricaDaFile(q, nomefile);
                 break;
             case 2:
                 printf("Inserisci i dettagli della nuova segnalazione:\n");
@@ -105,7 +103,7 @@ int main(){
                 printf("Segnalazione inserita con successo.\n");
                 }
                 else {
-                    printf("Errore nella creazione o inserimento della segnalazione.\n");
+                    printf("Segnalazione non salvata.\n");
                 }
                 break;
             case 3:
@@ -113,9 +111,14 @@ int main(){
                 int cod_id_elimina;
                 scanf("%d", &cod_id_elimina);
                 while (getchar() != '\n'); // Pulisce il buffer di input.
-                if (delete(q, cod_id_elimina)) {
+                int rimossa = delete(q, cod_id_elimina);
+                if (rimossa==1) {
                     printf("Segnalazione eliminata con successo.\n");
                 }
+                else if (rimossa==2) {
+                    DestroyPQueue(q);
+                    return 0;
+                }   
                 break;
             case 4:
                 visualizzaTutte(q);

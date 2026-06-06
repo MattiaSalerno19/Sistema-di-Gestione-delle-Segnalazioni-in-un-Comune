@@ -1,0 +1,23 @@
+Errore: ID 18 gia' esistente. Salto la riga...
+
+--- TUTTE LE SEGNALAZIONI ---
+ID: 13    | Urgenza: 5  | Stato: 3          | Data: 11/01/2026
+Cittadino: Fabiano Fabi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Rifiuti non raccolti in tutta la città
+==================================================================
+ID: 5     | Urgenza: 3  | Stato: 2          | Data: 01/04/2026
+Cittadino: Miriam Immobile | Categoria: 3 (Impianti pubblici) 
+Descrizione: Mancanza di corretto lungo Via Mazzini
+==================================================================
+ID: 10    | Urgenza: 2  | Stato: 1          | Data: 28/06/2026
+Cittadino: Davide Gallucci | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Albero pericolante nel parco
+==================================================================
+ID: 18    | Urgenza: 1  | Stato: 1          | Data: 06/09/2025
+Cittadino: Stefano Cioffi | Categoria: 4 (Segnaletica e viabilità) 
+Descrizione: Mancata visibilità allo stop in Via Adige 
+==================================================================
+ID: 2     | Urgenza: 1  | Stato: 1          | Data: 30/03/2026
+Cittadino: Paola Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Strada principale da rifare
+==================================================================

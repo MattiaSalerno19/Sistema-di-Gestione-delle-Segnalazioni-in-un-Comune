@@ -1,0 +1,8 @@
+Stato attuale: 1
+Nuovo stato: 2
+Stato attuale: 2
+Nuovo stato: 3
+Stato attuale: 3
+Nuovo stato: 1
+Stato attuale: 1
+Nuovo stato: 1

@@ -5,7 +5,7 @@
 #include "hash.h"
 #define MAXPQ 150  // Definizione della dimensione massima dell'heap.
 
-typedef struct data { //struttura per la data.
+typedef struct data { //Struttura per la data.
     int giorno;
     int mese;
     int anno;
@@ -15,7 +15,7 @@ typedef struct segnalazione{ //Struttura per la segnalazione
     int cod_id; //Codice identificativo della segnalazione
     char cit_nome[20]; //Nome del cittadino che ha effettuato la segnalazione
     char cit_cogn[20]; //Cognome del cittadino che ha effettuato la segnalazione
-    int cat; //Categoria del problema che varierà da 1 a 5
+    int cat; //Categoria del problema che varia da 1 a 5
     char desc[150]; //Descrizione del problema
     Data data; //Data della segnalazione
     int urg; //Livello di urgenza
@@ -25,26 +25,26 @@ typedef struct segnalazione{ //Struttura per la segnalazione
 
 // Definizione della struttura per la coda di priorità.
 struct c_PQ {
-    Segnalazione vet[MAXPQ+1];  // Array per memorizzare gli elementi dell'heap, 
-    int numel;       // Numero attuale di elementi nell'heap.
-    hashtable hash; // Tabella hash per mappare i codici identificativi alle posizioni nell'heap.
+    Segnalazione vet[MAXPQ+1];  //Array per memorizzare gli elementi dell'heap, 
+    int numel;       //Numero attuale di elementi nell'heap.
+    hashtable hash; //Tabella hash per mappare i codici identificativi alle posizioni nell'heap.
 };
-
 
 // Dichiarazione delle funzioni statiche per la manipolazione dell'heap.
 static int scendi (PQueue q, int i);
 static int sali (PQueue q, int pos);
 
 //Funzione di confronto per ordinare le segnalazioni in base alla data
-// Ritorna un valore > 0 se d1 è successiva a d2 (più recente)
-// Ritorna un valore < 0 se d1 è precedente a d2 (più vecchia)
-// Ritorna 0 se sono uguali
+//Ritorna un valore > 0 se d1 è successiva a d2 (più recente)
+//Ritorna un valore < 0 se d1 è precedente a d2 (più vecchia)
+//Ritorna 0 se sono uguali
 static int confronta_date(Data d1, Data d2) {
     if (d1.anno != d2.anno) 
         return d1.anno - d2.anno;
     if (d1.mese != d2.mese) 
         return d1.mese - d2.mese;
     return d1.giorno - d2.giorno;
+    //A parità di urgenza, la priorità andrà alla segnalazione più vecchia.
 }
 
 //Funzione di controllo per verificare se un anno è bisestile.
@@ -71,7 +71,7 @@ static int data_valida(int g, int m, int a) {
     return 1;
 }
 
-// Funzione costruttore per una segnalazione.
+// Funzione per creare una nuova segnalazione.
 Segnalazione newSegnalazione(int cod_id, const char *nome, const char *cogn,int cat, const char *desc,int giorno, int mese, int anno,int urg, int stato, int rimuovibile) {
     Segnalazione s;
     //Controllo dei parametri, se uno è errato il codice id diventa -1 e caricaDaFile gestisce l'errore.
@@ -105,16 +105,18 @@ Segnalazione newSegnalazione(int cod_id, const char *nome, const char *cogn,int 
         s.cod_id = -1;
         return s;
     }
+    
     // Se tutti i parametri sono validi, inizializza la segnalazione.
-    s.cod_id      = cod_id;
-    s.cat         = cat;
-    s.urg         = urg;
-    s.stato       = stato;
+    s.cod_id = cod_id;
+    s.cat = cat;
+    s.urg = urg;
+    s.stato = stato;
     s.rimuovibile = rimuovibile;
     s.data.giorno = giorno;
-    s.data.mese   = mese;
-    s.data.anno   = anno;
+    s.data.mese = mese;
+    s.data.anno = anno;
     
+    //Copia le stringe aggiungendo \0 alla fine.
     strncpy(s.cit_nome, nome, sizeof(s.cit_nome) - 1);
     s.cit_nome[sizeof(s.cit_nome) - 1] = '\0';
     strncpy(s.cit_cogn, cogn, sizeof(s.cit_cogn) - 1);
@@ -168,15 +170,14 @@ static int scendi(PQueue q, int i)
     Segnalazione temp;
     int n = q->numel, pos;
 
-    while (1) // Determina la posizione del figlio con il valore più grande.
-    {
-        
+    while (1)
+    {      
         if (2*i + 1 <= n){  // Se il nodo corrente ha due figli.
             if((q->vet[2*i].urg > q->vet[2*i + 1].urg || (q->vet[2*i].urg == q->vet[2*i + 1].urg && confronta_date(q->vet[2*i].data, q->vet[2*i + 1].data) < 0))){
                 pos = 2*i;  // Il figlio sinistro ha priorità maggiore.
             }
             else{   
-                pos = 2*i + 1;  // Il figlio destro ha priorità maggiore.
+                pos = 2*i + 1;  // Il figlio destro ha priorità maggiore o uguale.
             }
         }
       
@@ -289,29 +290,30 @@ int insert(PQueue q, Segnalazione key)
      return 1; 
 }
 
-//Funzione per eliminare un elemento dato il suo id
+//Funzione per eliminare un elemento dato il suo id.
 int delete(PQueue q, int cod_id) {
-    if (emptyPQ(q)) {
+    
+    if (emptyPQ(q)) { //Se la coda è vuota
         printf("Nessuna segnalazione da eliminare.\n");
         return 0;
     }
     
-    int i = hashSearch(q->hash, cod_id);
-    if (i == -1) {
+    int i = hashSearch(q->hash, cod_id); //Uso hashSearch per trovare la posizione dell'elemento senza scorrere l'intera coda.
+    
+    if (i == -1) { //Se l'elemento non esiste.
         printf("Elemento non trovato.\n");
         return 0;
     }
 
-    if (q->vet[i].rimuovibile == 0) {
+    if (q->vet[i].rimuovibile == 0) { //Se non è rimovibile.
         printf("La segnalazione non è rimovibile.\n");
         return 0;
     }
 
-    // Cancello il vecchio record dall'hash prima di alterare l'heap
+    // Cancello il vecchio record dall'hash prima di alterare l'heap.
     hashDelete(q->hash, cod_id);
 
-    if (i == q->numel) {
-        // Se era l'ultimo elemento decremento il contatore.
+    if (i == q->numel) { // Se era l'ultimo elemento decremento il contatore.     
         q->numel--;
         return 1;
     } 
@@ -328,14 +330,16 @@ int delete(PQueue q, int cod_id) {
 
             // Provo a rimettere il vecchio elemento nell'hash
             if (!hash_insert(q->hash, removed_element.cod_id, i)) {
-                printf("\n Errore critico\n");
+                printf("\n Errore critico, la struttura dati è danneggiata.Il programma verrà terminato.\n");
                 return 2; //In caso fallisca l'aggiornamento di posizione e poi fallisca il rollback, ritorna errore critico per poi chiudere il programma.
             }
-        
+            
+            printf("Errore interno nella tabella hash: eliminazione annullata.\n");
             return 0; //Fallisce l'aggiornamento di posizione ma funziona il rollback.
         }
         
         int padre = i / 2;
+        // Riaggiusta l'elemento spostato.
         if (i > 1 && (q->vet[i].urg > q->vet[padre].urg || (q->vet[i].urg == q->vet[padre].urg && confronta_date(q->vet[i].data, q->vet[padre].data) < 0))) {
             if (!sali(q, i)) {
                 printf("Errore interno in sali: eliminazione annullata.\n");
@@ -353,7 +357,7 @@ int delete(PQueue q, int cod_id) {
 
 }
 
-// Funzione di confronto per qsort.
+//Funzione di confronto per qsort.
 int confronta_segnalazioni(const void *a, const void *b) {
     const Segnalazione *s1 = (const Segnalazione *)a;
     const Segnalazione *s2 = (const Segnalazione *)b;
@@ -366,6 +370,7 @@ int confronta_segnalazioni(const void *a, const void *b) {
 
 // Funzione per visionare tutte le segnalazioni.
 void visualizzaTutte(PQueue q) {
+    
     if (emptyPQ(q)) {
         printf("Nessuna segnalazione da visualizzare.\n");
         return;
@@ -469,6 +474,7 @@ void visualizzaPerCategoria(PQueue q, int categoria_cercata) {
 
 //Funzione per rendere una segnalazione chiudibile tramite codice id.
 int rendi_chiudibile(PQueue q, int cod_id) {
+    
     if (emptyPQ(q)) {
         printf("Nessuna segnalazione da rendere chiudibile.\n");
         return 0;
@@ -489,7 +495,6 @@ int rendi_chiudibile(PQueue q, int cod_id) {
 }
 
 // Carica le segnalazioni da un file txt nella coda di priorità.
-//I campi sono separati da spazi, seguono l'ordine con cui newsegnalazione le riceve, la descrizione al posto degli spazi usa '_'
 int caricaDaFile(PQueue q, const char *nomefile) {
     FILE *f = fopen(nomefile, "r");
     if (f == NULL) {

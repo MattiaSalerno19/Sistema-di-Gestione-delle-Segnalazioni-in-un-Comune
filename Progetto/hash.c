@@ -126,7 +126,7 @@ static void deleteList(struct item *p) {
     }
 }
 
-// Funzione per distruggere (eliminare completamente) una tabella hash.
+// Funzione per distruggere una tabella hash.
 void DestroyHashtable(hashtable h) {
     
     if (h == NULL) return;

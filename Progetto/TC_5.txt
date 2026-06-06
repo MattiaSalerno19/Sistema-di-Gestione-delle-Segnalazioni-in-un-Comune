@@ -1,0 +1,14 @@
+2 Paola Rossi 1 30 03 2026 1 1 Strada principale da rifare
+5 Miriam Immobile 3 1 04 2026 3 2 Mancanza di corretto lungo Via Mazzini
+13 Fabiano Fabi 2 11 01 2026 5 3 Rifiuti non raccolti in tutta la città
+18 Stefano Cioffi 4 06 09 2025 1 1 Mancata visibilità allo stop in Via Adige 
+10 Davide Gallucci 2 28 06 2026 2 1 Albero pericolante nel parco
+19 Salvatore Naccarato 1 01 1 2026 5 1 Foro nell'asfalto sul corso principale
+1 Mario Rossi 1 19 11 2025 1 1 Buca in Via Verona 13
+15 Giovanni Bianchi 2 09 07 2025 2 1 Spazzattura non regolare nel parco
+67 Gigliola Molinari 4 06 04 2025 1 1 Cartello di divieto di sosta non visibile in Via Mazzini
+3 Anna Santoro 3 28 02 2025 5 2 Perdita di acqua in Via Pisa
+81 Gerardo Vece 2 01 1 2026 3 1 Fuochi artificiali inesplosi in Via Verdi
+17 Giuseppe Montella 5 18 12 2025 3 3 Edificio pericolante vicino il comune
+12 Giulia Michelin 5 2 02 2026 5 2 Protesta non autorizzata davanti allo zuccherificio
+95 Michele Ricci 3 22 08 2025 4 1 Lampione rotto sull'uscita autostradale

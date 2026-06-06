@@ -1,0 +1,9 @@
+La segnalazione non è rimovibile.
+
+Segnalazione trovata:
+ID: 2     | Urgenza: 5  | Stato: 1          | Data: 01/01/2026
+Cittadino: Salvatore Naccarato | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Foro nell'asfalto sul corso principale
+==================================================================
+
+Nessuna segnalazione trovata con il codice 2.

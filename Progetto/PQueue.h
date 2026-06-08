@@ -18,7 +18,7 @@ void visualizzaPerUrgenza(PQueue q, int urgenza_cercata);
 void visualizzaPiuUrgenti(PQueue q, int i);
 void visualizzaPerCodice(PQueue q, int codice_cercato);
 void visualizzaPerCategoria(PQueue q, int categoria_cercata);
-int rendi_chiudibile(PQueue q, int cod_id);
+int rendi_rimovibile(PQueue q, int cod_id);
 int cambia_stato(PQueue q, int cod_id, int nuovo_stato);
 int caricaDaFile(PQueue q, const char *nomefile);
 int insertSegnalazione(PQueue q, int cod_id, const char *nome, const char *cogn,int cat, const char *desc,int giorno, int mese, int anno,int urg, int stato);

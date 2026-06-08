@@ -441,7 +441,7 @@ int test_7(){ //Test riguradante l'eliminazione di una segnalazione
     caricaDaFile(q, input_fname);
     delete(q, 2); //Provo ad eliminare una segnalazione non chiudibile
     visualizzaPerCodice(q, 2); //Controllo che la segnalazione non sia stata eliminata
-    rendi_chiudibile(q, 2); //Rendo chiudibile la segnalazione
+    rendi_rimovibile(q, 2); //Rendo chiudibile la segnalazione
     delete(q, 2); //Provo ad eliminarla dopo il cambiamento
     visualizzaPerCodice(q, 2); //Controllo che sia sta eliminata
 

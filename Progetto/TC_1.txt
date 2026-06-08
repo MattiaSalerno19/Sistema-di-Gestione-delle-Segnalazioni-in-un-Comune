@@ -1,9 +1,20 @@
 //Test case 1, dati errati e corretto inserimento.
+//Segnalazione corretta.
 1 Mario Rossi 1 19 11 2025 1 1 Buca in Via Verona 13
+//Codice id non valido.
 -11 Giovanni Bianchi 2 09 07 2025 2 1 Spazzattura non regolare nel parco
+//Codice id duplicato
 1 Gigliola Molinari 4 06 04 2025 1 1 Cartello di divieto di sosta non visibile in Via Mazzini
+//Data non valida.
 3 Anna Santoro 3 30 02 2025 5 2 Perdita di acqua in Via Pisa
+//Altra segnalazione valida.
 81 Gerardo Vece 2 01 1 2026 3 1 Fuochi artificiali inesplosi in Via Verdi
+//Categoria non valida.
 17 Giuseppe Montella 7 18 12 2025 3 3 Edificio pericolante vicino il comune
+//Urgenza non valida.
 12 Giulia Michelin 5 2 02 2026 11 2 Protesta non autorizzata davanti allo zuccherificio
+//Inserimento automatico dell'id.
+0 Salvatore Guida 2 22 5 2025 5 2 Auto in fiamme in via Stella
+//Stato non valido.
 95 Michele Ricci 3 22 08 2025 4 5 Lampione rotto sull'uscita autostradale
+    

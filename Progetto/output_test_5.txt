@@ -1,0 +1,188 @@
+ID: 19    | Urgenza: 5  | Stato: 1          | Data: 01/01/2026
+Cittadino: Salvatore Naccarato | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Foro nell'asfalto sul corso principale
+==================================================================
+ID: 10    | Urgenza: 2  | Stato: 1          | Data: 28/06/2026
+Cittadino: Davide Gallucci | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Albero pericolante nel parco
+==================================================================
+ID: 81    | Urgenza: 3  | Stato: 1          | Data: 01/01/2026
+Cittadino: Gerardo Vece | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Fuochi artificiali inesplosi in Via Verdi
+==================================================================
+ID: 95    | Urgenza: 4  | Stato: 1          | Data: 22/08/2025
+Cittadino: Michele Ricci | Categoria: 3 (Impianti pubblici) 
+Descrizione: Lampione rotto sull'uscita autostradale
+==================================================================
+ID: 2     | Urgenza: 1  | Stato: 1          | Data: 30/03/2026
+Cittadino: Paola Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Strada principale da rifare
+==================================================================
+ID: 67    | Urgenza: 1  | Stato: 1          | Data: 06/04/2025
+Cittadino: Gigliola Molinari | Categoria: 4 (Segnaletica e viabilità) 
+Descrizione: Cartello di divieto di sosta non visibile in Via Mazzini
+==================================================================
+ID: 18    | Urgenza: 1  | Stato: 1          | Data: 06/09/2025
+Cittadino: Stefano Cioffi | Categoria: 4 (Segnaletica e viabilità) 
+Descrizione: Mancata visibilità allo stop in Via Adige 
+==================================================================
+ID: 15    | Urgenza: 2  | Stato: 1          | Data: 09/07/2025
+Cittadino: Giovanni Bianchi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Spazzattura non regolare nel parco
+==================================================================
+ID: 1     | Urgenza: 1  | Stato: 1          | Data: 19/11/2025
+Cittadino: Mario Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Buca in Via Verona 13
+==================================================================
+ID: 3     | Urgenza: 5  | Stato: 2          | Data: 28/02/2025
+Cittadino: Anna Santoro | Categoria: 3 (Impianti pubblici) 
+Descrizione: Perdita di acqua in Via Pisa
+==================================================================
+ID: 12    | Urgenza: 5  | Stato: 2          | Data: 02/02/2026
+Cittadino: Giulia Michelin | Categoria: 5 (Altro) 
+Descrizione: Protesta non autorizzata davanti allo zuccherificio
+==================================================================
+ID: 5     | Urgenza: 3  | Stato: 2          | Data: 01/04/2026
+Cittadino: Miriam Immobile | Categoria: 3 (Impianti pubblici) 
+Descrizione: Mancanza di corretto lungo Via Mazzini
+==================================================================
+ID: 13    | Urgenza: 5  | Stato: 3          | Data: 11/01/2026
+Cittadino: Fabiano Fabi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Rifiuti non raccolti in tutta la città
+==================================================================
+ID: 17    | Urgenza: 3  | Stato: 3          | Data: 18/12/2025
+Cittadino: Giuseppe Montella | Categoria: 5 (Altro) 
+Descrizione: Edificio pericolante vicino il comune
+==================================================================
+
+--- SEGNALAZIONI CON URGENZA 1 ---
+ID: 2     | Urgenza: 1  | Stato: 1          | Data: 30/03/2026
+Cittadino: Paola Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Strada principale da rifare
+==================================================================
+ID: 67    | Urgenza: 1  | Stato: 1          | Data: 06/04/2025
+Cittadino: Gigliola Molinari | Categoria: 4 (Segnaletica e viabilità) 
+Descrizione: Cartello di divieto di sosta non visibile in Via Mazzini
+==================================================================
+ID: 18    | Urgenza: 1  | Stato: 1          | Data: 06/09/2025
+Cittadino: Stefano Cioffi | Categoria: 4 (Segnaletica e viabilità) 
+Descrizione: Mancata visibilità allo stop in Via Adige 
+==================================================================
+ID: 1     | Urgenza: 1  | Stato: 1          | Data: 19/11/2025
+Cittadino: Mario Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Buca in Via Verona 13
+==================================================================
+
+--- SEGNALAZIONI CON URGENZA 2 ---
+ID: 10    | Urgenza: 2  | Stato: 1          | Data: 28/06/2026
+Cittadino: Davide Gallucci | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Albero pericolante nel parco
+==================================================================
+ID: 15    | Urgenza: 2  | Stato: 1          | Data: 09/07/2025
+Cittadino: Giovanni Bianchi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Spazzattura non regolare nel parco
+==================================================================
+
+--- SEGNALAZIONI CON URGENZA 3 ---
+ID: 81    | Urgenza: 3  | Stato: 1          | Data: 01/01/2026
+Cittadino: Gerardo Vece | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Fuochi artificiali inesplosi in Via Verdi
+==================================================================
+ID: 5     | Urgenza: 3  | Stato: 2          | Data: 01/04/2026
+Cittadino: Miriam Immobile | Categoria: 3 (Impianti pubblici) 
+Descrizione: Mancanza di corretto lungo Via Mazzini
+==================================================================
+ID: 17    | Urgenza: 3  | Stato: 3          | Data: 18/12/2025
+Cittadino: Giuseppe Montella | Categoria: 5 (Altro) 
+Descrizione: Edificio pericolante vicino il comune
+==================================================================
+
+--- SEGNALAZIONI CON URGENZA 4 ---
+ID: 95    | Urgenza: 4  | Stato: 1          | Data: 22/08/2025
+Cittadino: Michele Ricci | Categoria: 3 (Impianti pubblici) 
+Descrizione: Lampione rotto sull'uscita autostradale
+==================================================================
+
+--- SEGNALAZIONI CON URGENZA 5 ---
+ID: 3     | Urgenza: 5  | Stato: 2          | Data: 28/02/2025
+Cittadino: Anna Santoro | Categoria: 3 (Impianti pubblici) 
+Descrizione: Perdita di acqua in Via Pisa
+==================================================================
+ID: 19    | Urgenza: 5  | Stato: 1          | Data: 01/01/2026
+Cittadino: Salvatore Naccarato | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Foro nell'asfalto sul corso principale
+==================================================================
+ID: 13    | Urgenza: 5  | Stato: 3          | Data: 11/01/2026
+Cittadino: Fabiano Fabi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Rifiuti non raccolti in tutta la città
+==================================================================
+ID: 12    | Urgenza: 5  | Stato: 2          | Data: 02/02/2026
+Cittadino: Giulia Michelin | Categoria: 5 (Altro) 
+Descrizione: Protesta non autorizzata davanti allo zuccherificio
+==================================================================
+
+--- SEGNALAZIONI CATEGORIA 1 ---
+ID: 19    | Urgenza: 5  | Stato: 1          | Data: 01/01/2026
+Cittadino: Salvatore Naccarato | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Foro nell'asfalto sul corso principale
+==================================================================
+ID: 2     | Urgenza: 1  | Stato: 1          | Data: 30/03/2026
+Cittadino: Paola Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Strada principale da rifare
+==================================================================
+ID: 1     | Urgenza: 1  | Stato: 1          | Data: 19/11/2025
+Cittadino: Mario Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Buca in Via Verona 13
+==================================================================
+
+--- SEGNALAZIONI CATEGORIA 2 ---
+ID: 13    | Urgenza: 5  | Stato: 3          | Data: 11/01/2026
+Cittadino: Fabiano Fabi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Rifiuti non raccolti in tutta la città
+==================================================================
+ID: 10    | Urgenza: 2  | Stato: 1          | Data: 28/06/2026
+Cittadino: Davide Gallucci | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Albero pericolante nel parco
+==================================================================
+ID: 81    | Urgenza: 3  | Stato: 1          | Data: 01/01/2026
+Cittadino: Gerardo Vece | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Fuochi artificiali inesplosi in Via Verdi
+==================================================================
+ID: 15    | Urgenza: 2  | Stato: 1          | Data: 09/07/2025
+Cittadino: Giovanni Bianchi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Spazzattura non regolare nel parco
+==================================================================
+
+--- SEGNALAZIONI CATEGORIA 3 ---
+ID: 3     | Urgenza: 5  | Stato: 2          | Data: 28/02/2025
+Cittadino: Anna Santoro | Categoria: 3 (Impianti pubblici) 
+Descrizione: Perdita di acqua in Via Pisa
+==================================================================
+ID: 95    | Urgenza: 4  | Stato: 1          | Data: 22/08/2025
+Cittadino: Michele Ricci | Categoria: 3 (Impianti pubblici) 
+Descrizione: Lampione rotto sull'uscita autostradale
+==================================================================
+ID: 5     | Urgenza: 3  | Stato: 2          | Data: 01/04/2026
+Cittadino: Miriam Immobile | Categoria: 3 (Impianti pubblici) 
+Descrizione: Mancanza di corretto lungo Via Mazzini
+==================================================================
+
+--- SEGNALAZIONI CATEGORIA 4 ---
+ID: 67    | Urgenza: 1  | Stato: 1          | Data: 06/04/2025
+Cittadino: Gigliola Molinari | Categoria: 4 (Segnaletica e viabilità) 
+Descrizione: Cartello di divieto di sosta non visibile in Via Mazzini
+==================================================================
+ID: 18    | Urgenza: 1  | Stato: 1          | Data: 06/09/2025
+Cittadino: Stefano Cioffi | Categoria: 4 (Segnaletica e viabilità) 
+Descrizione: Mancata visibilità allo stop in Via Adige 
+==================================================================
+
+--- SEGNALAZIONI CATEGORIA 5 ---
+ID: 12    | Urgenza: 5  | Stato: 2          | Data: 02/02/2026
+Cittadino: Giulia Michelin | Categoria: 5 (Altro) 
+Descrizione: Protesta non autorizzata davanti allo zuccherificio
+==================================================================
+ID: 17    | Urgenza: 3  | Stato: 3          | Data: 18/12/2025
+Cittadino: Giuseppe Montella | Categoria: 5 (Altro) 
+Descrizione: Edificio pericolante vicino il comune
+==================================================================

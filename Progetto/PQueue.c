@@ -28,6 +28,7 @@ struct c_PQ {
     Segnalazione vet[MAXPQ+1];  //Array per memorizzare gli elementi dell'heap, 
     int numel;       //Numero attuale di elementi nell'heap.
     hashtable hash; //Tabella hash per mappare i codici identificativi alle posizioni nell'heap.
+    int max_id; //ID maggiore mai inserito nella coda, necessario per la generazione automatica.
 };
 
 // Dichiarazione delle funzioni statiche per la manipolazione dell'heap.
@@ -134,6 +135,7 @@ PQueue newPQ(void)
     if (q == NULL) return NULL;       
     q->numel = 0; 
     q->hash = newHashtable(MAXPQ * 2); 
+    q->max_id = 0;
     if (q->hash == NULL) {
         free(q); // Se fallisce l'hash, libera la memoria allocata per la coda e ritorna NULL.
         return NULL;
@@ -395,11 +397,11 @@ int delete(PQueue q, int cod_id) {
 
 }
 
-//Funzione per rendere una segnalazione chiudibile tramite codice id.
-int rendi_chiudibile(PQueue q, int cod_id) {
+//Funzione per rendere una segnalazione rimovibile tramite codice id.
+int rendi_rimovibile(PQueue q, int cod_id) {
     
     if (emptyPQ(q)) {
-        printf("Nessuna segnalazione da rendere chiudibile.\n");
+        printf("Nessuna segnalazione presente.\n");
         return 0;
     }
 
@@ -587,6 +589,14 @@ int caricaDaFile(PQueue q, const char *nomefile) {
                 printf("Errore: ID %d gia' esistente. Salto la riga...\n", cod_id);
                 continue; // Salta questa riga e passa alla prossima
             }
+            if (cod_id==0){
+                cod_id=((q->max_id)+1);
+                q->max_id=cod_id;
+                printf("Codice id assegnato:%d\n", cod_id);
+            }
+            if (cod_id>q->max_id){
+            q->max_id=cod_id;
+            }
             Segnalazione s = newSegnalazione(cod_id, nome, cogn, cat, desc,giorno, mese, anno,urg, stato, 0);
             if (s.cod_id == -1){
                 printf("Segnalazione non salvata.\n");
@@ -612,9 +622,18 @@ int insertSegnalazione(PQueue q, int cod_id, const char *nome, const char *cogn,
         return 0; // Blocca l'inserimento
     }
     
-    Segnalazione s = newSegnalazione(cod_id, nome, cogn, cat, desc,
-                                     giorno, mese, anno, urg, stato, 0);
+    if (cod_id==0){
+        cod_id=((q->max_id)+1);
+        q->max_id=cod_id;
+        printf("Codice id assegnato:%d\n", cod_id);
+    }
+    if (cod_id>q->max_id){
+        q->max_id=cod_id;
+    }
+    
+    Segnalazione s = newSegnalazione(cod_id, nome, cogn, cat, desc, giorno, mese, anno, urg, stato, 0);
     if (s.cod_id == -1) return 0;
+
     return insert(q, s);
 }
 

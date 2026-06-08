@@ -1,7 +1,7 @@
 all: link test
 
-link: hash.o Pqueue.o main.o
-	gcc hash.o Pqueue.o main.o -o main.exe
+link: hash.o Pqueue.o main.o Gestione.o
+	gcc hash.o Pqueue.o main.o Gestione.o -o main.exe
 
 test: hash.o Pqueue.o test_main.o
 	gcc hash.o Pqueue.o test_main.o -o test.exe
@@ -11,6 +11,9 @@ hash.o:
 
 Pqueue.o:
 	gcc -c Pqueue.c
+
+Gestione.o:
+	gcc -c Gestione.c
 
 main.o:
 	gcc -c main.c

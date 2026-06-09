@@ -1,0 +1,16 @@
+
+Segnalazione trovata:
+ID: 10    | Urgenza: 2  | Stato: 1          | Data: 28/06/2026
+Cittadino: Davide Gallucci | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Albero pericolante nel parco
+==================================================================
+
+Nessuna segnalazione trovata con il codice 13.
+
+Segnalazione trovata:
+ID: 18    | Urgenza: 5  | Stato: 1          | Data: 01/01/2026
+Cittadino: Salvatore Naccarato | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Foro nell'asfalto sul corso principale
+==================================================================
+
+Nessuna segnalazione trovata con il codice 20.

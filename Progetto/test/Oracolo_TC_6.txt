@@ -1,0 +1,13 @@
+
+--- REPORT ---
+Numero totale di segnalazioni: 12
+Segnalazioni per categoria:
+Manutenzione stradale: 3
+Ambiente e rifiuti: 4
+Impianti pubblici: 2
+Segnaletica e viabilità: 2
+Altro: 1
+Segnalazioni aperte: 8
+Segnalazioni in lavorazione: 2
+Segnalazioni chiuse: 2
+Categoria con più segnalazioni: Ambiente e rifiuti (4 segnalazioni)

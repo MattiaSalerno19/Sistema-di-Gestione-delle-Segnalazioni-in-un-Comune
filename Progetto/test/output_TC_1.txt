@@ -1,20 +1,26 @@
-Non ci sono abbastanza segnalazioni, massimo 12 
-Numero non valido, deve essere maggiore di 0.
+Errore: ID -11 non valido (deve essere maggiore di 0).
+Segnalazione non salvata.
+Errore: ID 1 gia' esistente. Salto la riga...
+Errore (ID 3): Data 30/02/2025 inesistente o non valida.
+Segnalazione non salvata.
+Errore (ID 17): Categoria 7 non valida (deve essere tra 1 e 5).
+Segnalazione non salvata.
+Errore (ID 12): Livello urgenza 11 non valido (deve essere >= 1).
+Segnalazione non salvata.
+Codice id assegnato:82
+Errore (ID 95): Stato 5 non valido (deve essere tra 1 e 3).
+Segnalazione non salvata.
 
---- PRIME 4 SEGNALAZIONI ---
-ID: 3     | Urgenza: 5  | Stato: 2          | Data: 28/02/2025
-Cittadino: Anna Santoro | Categoria: 3 (Impianti pubblici) 
-Descrizione: Perdita di acqua in Via Pisa
+--- TUTTE LE SEGNALAZIONI ---
+ID: 82    | Urgenza: 5  | Stato: 2          | Data: 22/05/2025
+Cittadino: Salvatore Guida | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Auto in fiamme in via Stella
 ==================================================================
-ID: 19    | Urgenza: 5  | Stato: 1          | Data: 01/01/2026
-Cittadino: Salvatore Naccarato | Categoria: 1 (Manutenzione stradale) 
-Descrizione: Foro nell'asfalto sul corso principale
+ID: 81    | Urgenza: 3  | Stato: 1          | Data: 01/01/2026
+Cittadino: Gerardo Vece | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Fuochi artificiali inesplosi in Via Verdi
 ==================================================================
-ID: 13    | Urgenza: 5  | Stato: 3          | Data: 11/01/2026
-Cittadino: Fabiano Fabi | Categoria: 2 (Ambiente e rifiuti) 
-Descrizione: Rifiuti non raccolti in tutta la città
-==================================================================
-ID: 17    | Urgenza: 3  | Stato: 3          | Data: 18/12/2025
-Cittadino: Giuseppe Montella | Categoria: 5 (Altro) 
-Descrizione: Edificio pericolante vicino il comune
+ID: 1     | Urgenza: 1  | Stato: 1          | Data: 19/11/2025
+Cittadino: Mario Rossi | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Buca in Via Verona 13
 ==================================================================

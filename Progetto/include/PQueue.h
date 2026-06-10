@@ -11,7 +11,6 @@ int emptyPQ(PQueue q);
 void DestroyPQueue(PQueue q);
 int insert (PQueue q, Segnalazione key);
 int delete(PQueue q, int cod_id);
-int confronta_segnalazioni(const void *a, const void *b);
 void visualizzaTutte(PQueue q);
 void visualizzaPerStato(PQueue q, int stato_cercato);
 void visualizzaPerUrgenza(PQueue q, int urgenza_cercata);

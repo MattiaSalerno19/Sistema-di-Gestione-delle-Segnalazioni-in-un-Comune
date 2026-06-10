@@ -655,7 +655,7 @@ void test_8(FILE *f_results){ //Test riguardante la visione delle segnalazioni p
 
     FILE *tcase = fopen("test/TC_8.txt", "r");
     FILE *oracle = fopen("test/Oracolo_TC_8.txt", "r");
-    FILE *output = freopen("test/output_TC_1.txt", "w+", stdout);
+    FILE *output = freopen("test/output_TC_8.txt", "w+", stdout);
 
     if (!output || !oracle || !tcase) {
         fclose(tcase);

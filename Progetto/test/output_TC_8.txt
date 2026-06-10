@@ -1,4 +1,20 @@
-Errore: impossibile aprire il file ''.
-Nessuna segnalazione da visualizzare.
-Nessuna segnalazione da visualizzare.
-Nessuna segnalazione da visualizzare.
+Non ci sono abbastanza segnalazioni, massimo 12 
+Numero non valido, deve essere maggiore di 0.
+
+--- PRIME 4 SEGNALAZIONI ---
+ID: 3     | Urgenza: 5  | Stato: 2          | Data: 28/02/2025
+Cittadino: Anna Santoro | Categoria: 3 (Impianti pubblici) 
+Descrizione: Perdita di acqua in Via Pisa
+==================================================================
+ID: 19    | Urgenza: 5  | Stato: 1          | Data: 01/01/2026
+Cittadino: Salvatore Naccarato | Categoria: 1 (Manutenzione stradale) 
+Descrizione: Foro nell'asfalto sul corso principale
+==================================================================
+ID: 13    | Urgenza: 5  | Stato: 3          | Data: 11/01/2026
+Cittadino: Fabiano Fabi | Categoria: 2 (Ambiente e rifiuti) 
+Descrizione: Rifiuti non raccolti in tutta la città
+==================================================================
+ID: 17    | Urgenza: 3  | Stato: 3          | Data: 18/12/2025
+Cittadino: Giuseppe Montella | Categoria: 5 (Altro) 
+Descrizione: Edificio pericolante vicino il comune
+==================================================================

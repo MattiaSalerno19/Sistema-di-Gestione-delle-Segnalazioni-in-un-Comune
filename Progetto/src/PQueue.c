@@ -1,6 +1,8 @@
 #include <stdio.h>  
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+
 #include "PQueue.h" 
 #include "hash.h"
 #define MAXPQ 150  // Definizione della dimensione massima dell'heap.
@@ -66,10 +68,12 @@ void rimuovi_indice(struct nodo_indice **head, int id) {
 static int scendi (PQueue q, int i);
 static int sali (PQueue q, int pos);
 
-//Funzione di confronto per ordinare le segnalazioni in base alla data
-//Ritorna un valore > 0 se d1 è successiva a d2 (più recente)
-//Ritorna un valore < 0 se d1 è precedente a d2 (più vecchia)
-//Ritorna 0 se sono uguali
+/*
+ *Funzione di confronto per ordinare le segnalazioni in base alla data
+ *Ritorna un valore > 0 se d1 è successiva a d2 (più recente)
+ *Ritorna un valore < 0 se d1 è precedente a d2 (più vecchia)
+ *Ritorna 0 se sono uguali
+*/
 static int confronta_date(Data d1, Data d2) {
     if (d1.anno != d2.anno) 
         return d1.anno - d2.anno;
@@ -200,7 +204,7 @@ static void stampa_singola(Segnalazione s){
         case 4: nome_cat = "Segnaletica e viabilità"; break;
         case 5: nome_cat = "Altro"; break;
     }
-    printf("ID: %-5d | Urgenza: %-2d | Stato: %-10d | Data: %02d/%02d/%d\n",s.cod_id, s.urg, s.stato, s.data.giorno, s.data.mese, s.data.anno);
+    printf("ID: %-5d | Urgenza: %-2d | Stato: %-10d | Data: %02d/%02d/%04d\n",s.cod_id, s.urg, s.stato, s.data.giorno, s.data.mese, s.data.anno);
     printf("Cittadino: %s %s | Categoria: %d (%s) \n", s.cit_nome, s.cit_cogn, s.cat, nome_cat);
     printf("Descrizione: %s\n", s.desc);
     printf("==================================================================\n");
@@ -588,28 +592,50 @@ void visualizzaPiuUrgenti(PQueue q, int i){
         printf("Numero non valido, deve essere maggiore di 0.\n");
         return;
     }
-
-    PQueue q_temp = newPQ(); //Creo una coda temporanea
-    if (!q_temp) {
-        printf("Errore di allocazione della struttura della coda temporanea.\n");
-        return;
-    }
-
-    q_temp->numel = q->numel; //Sincronizzo il numeri di elementi
-    memcpy(&q_temp->vet[1], &q->vet[1], q->numel * sizeof(Segnalazione)); //Funzione di copia da string.h per copiare blocchi di memoria.
-
-    printf("\n--- PRIME %d SEGNALAZIONI ---\n", i);
     
-    for(int t=0;t<i;t++){
-        stampa_singola(q_temp->vet[1]); //Stampa la radice, ha priorità massima.
-        q_temp->vet[1] = q_temp->vet[q_temp->numel];
-        q_temp->numel--;
-        if (q_temp->numel > 0) {
-            scendi_nohash(q_temp, 1);
-        }
-    }
+    double soglia = (double)q->numel*(1.0/(1.0+log2((double)q->numel))); //Valore sotto il quale conviene usare un metodo piuttosto che un altro.
 
-    DestroyPQueue(q_temp); //Distrugge la coda temporanea.
+    if(i==1){ //Se è una sola segnalazione la stampa e basta.
+        stampa_singola(q->vet[1]);
+    }
+    else if(i<(int)soglia){
+        Segnalazione *temp = malloc(i * sizeof(Segnalazione));
+        if (!temp) return;
+        printf("\n--- PRIME %d SEGNALAZIONI ---\n", i);
+        for (int t=0;t<i;t++){
+            stampa_singola(q->vet[1]);
+            temp[t] = q->vet[1];
+            rendi_rimovibile(q, q->vet[1].cod_id);
+            delete(q, q->vet[1].cod_id);
+        }
+        for(int k=(i-1);k>=0;k--){
+            insert(q, temp[k]);
+        }
+        free (temp);
+    }
+    else{
+        PQueue q_temp = newPQ(); //Creo una coda temporanea
+        if (!q_temp) {
+            printf("Errore di allocazione della struttura della coda temporanea.\n");
+            return;
+        }
+
+        q_temp->numel = q->numel; //Sincronizzo il numeri di elementi
+        memcpy(&q_temp->vet[1], &q->vet[1], q->numel * sizeof(Segnalazione)); //Funzione di copia da string.h per copiare blocchi di memoria.
+
+        printf("\n--- PRIME %d SEGNALAZIONI ---\n", i);
+        
+        for(int t=0;t<i;t++){
+            stampa_singola(q_temp->vet[1]); //Stampa la radice, ha priorità massima.
+            q_temp->vet[1] = q_temp->vet[q_temp->numel];
+            q_temp->numel--;
+            if (q_temp->numel > 0) {
+                scendi_nohash(q_temp, 1);
+            }
+        }
+
+        DestroyPQueue(q_temp); //Distrugge la coda temporanea.
+    }
 }
 
 //Funzione per visionare le segnalazioni tramite codice identificativo.
